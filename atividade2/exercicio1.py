@@ -8,17 +8,47 @@ class VerticeDFS:
         self.tempo = sys.float_info.max
         self.final = sys.float_info.max
         self.antecessor = None
+    
+    def show(self):
+        antecessor = self.antecessor.vertice.rotulo if self.antecessor is not None else ""
+        print(self.vertice.rotulo, self.tempo, self.final, antecessor)
 
+def get_path_root(vertice_pai, filhos):
+    vertice_backup = vertice_pai
+    vertice_now = vertice_pai
+    caminho = []
+
+    rodando = True
+    while rodando:
+        for item in filhos:
+            if item.antecessor == vertice_now:
+                caminho.append(item)
+                vertice_now = item
+                break
+        if vertice_now != vertice_backup:
+            vertice_backup = vertice_now
+            continue
+        break
+
+    caminho.insert(0, vertice_pai)
+
+    saida = ""
+    for item in caminho:
+        saida += str(item.vertice.id) + ","
+    
+    print(saida[:-1])
 
 def componentes_fort_conexas(grafo):
     vertices = DFS(grafo)
-    vertices.sort(key = lambda x: x.tempo, reverse=True) # saber ordem do tempo final, para passar na próxima etapa
+    vertices.sort(key = lambda x: x.final, reverse=True) # saber ordem do tempo final, para passar na próxima etapa
 
-    vertices_final = DFS(grafo, vertices)
-    vertices_escolhidos = filter(lambda x: x.antecessor != None, vertices_final)
+    vertices_final = DFS(grafo, vertices1=vertices)
     
-    for item in vertices_escolhidos:
-        print(item.vertice.id)
+    roots = list(filter(lambda x: x.antecessor == None, vertices_final))
+    filhos = list(filter(lambda x: x.antecessor != None, vertices_final))
+
+    for i in roots:
+        get_path_root(i, filhos)
 
 
 def DFS(grafo, vertices1=None):
@@ -27,8 +57,9 @@ def DFS(grafo, vertices1=None):
     tempo = 0 # tempo de início
     for i in range(0, len(vertices)):
         id_now = i if not vertices1 else int(vertices1[i].vertice.id) - 1
+
         if vertices[id_now].hasPassed == False:
-            vertices = DFS_visit(vertices[id_now], vertices, tempo, entrada=False if not vertices1 else True)
+            vertices, tempo = DFS_visit(vertices[id_now], vertices, tempo, entrada=False if not vertices1 else True)
     
     return vertices
 
@@ -42,20 +73,20 @@ def DFS_visit(verticeOrigem, vertices, tempo, entrada=False):
     vizinhos = verticeOrigem.vertice.vizinhosSaida() if not entrada else verticeOrigem.vertice.vizinhosEntrada()
     
     for id in vizinhos:
-        if vertices[id - 1].hasPassed == False:
-            vertices[id - 1].antecessor = verticeOrigem
-            vertices = DFS_visit(vertices[id - 1], vertices, tempo)
+        if vertices[id].hasPassed == False:
+            vertices[id].antecessor = verticeOrigem
+            vertices, tempo = DFS_visit(vertices[id], vertices, tempo, entrada=entrada)
     
     tempo += 1
     vertices[indexVerticeOrigem].final = tempo
 
-    return vertices
+    return vertices, tempo
 
 def criar_verticesDFS(grafo):
     return [VerticeDFS(vertice) for vertice in grafo.grafo]
 
 def main():
-    grafo = Grafo.Grafo("testes/dirigidos/teste.net")
+    grafo = Grafo.Grafo("testes/dirigidos/teste2.net")
     componentes_fort_conexas(grafo)
 
 if __name__ == "__main__":

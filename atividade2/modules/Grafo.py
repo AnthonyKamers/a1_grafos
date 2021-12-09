@@ -66,10 +66,10 @@ class Grafo:
             
             if edges:
                 aux = aux.split(" ")
-                arco1 = Arco(int(aux[0]) - 1, int(aux[1]) - 1, float(aux[2]))
-                arco2 = Arco(int(aux[1]) - 1, int(aux[0]) - 1, float(aux[2]))
-                self.grafo[int(aux[0]) - 1].edgeSaida(arco1)
-                self.grafo[int(aux[1]) - 1].edgeEntrada(arco2)
+                arco = Arco(int(aux[0]) - 1, int(aux[1]) - 1, float(aux[2]))
+
+                self.grafo[int(aux[0]) - 1].edgeSaida(arco)
+                self.grafo[int(aux[1]) - 1].edgeEntrada(arco)
             
             if aux == "*edges" or aux == "*arcs":
                 reading = False
