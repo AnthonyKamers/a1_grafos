@@ -32,6 +32,7 @@ def get_path_root(vertice_pai, filhos):
 
     caminho.insert(0, vertice_pai)
 
+    # printtar no formato do exercício
     saida = ""
     for item in caminho:
         saida += str(item.vertice.id) + ","
@@ -47,6 +48,7 @@ def componentes_fort_conexas(grafo):
     roots = list(filter(lambda x: x.antecessor == None, vertices_final))
     filhos = list(filter(lambda x: x.antecessor != None, vertices_final))
 
+    # chamar para cada raiz, para fazer o caminho de cada uma
     for i in roots:
         get_path_root(i, filhos)
 
