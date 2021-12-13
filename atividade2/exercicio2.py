@@ -45,7 +45,7 @@ def criar_verticesDFS(grafo):
     return [VerticeDFS(vertice) for vertice in grafo.grafo]
 
 def main():
-    grafo = Grafo.Grafo("testes/dirigidos/manha.net")
+    grafo = Grafo.Grafo("testes/dirigidos/teste3.net")
     ordenacao_topologica(grafo)
 
 if __name__ == "__main__":
