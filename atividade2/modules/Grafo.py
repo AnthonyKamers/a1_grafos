@@ -76,7 +76,7 @@ class Grafo:
                 edges = True
             
             if reading:
-                split = aux.split(' ')
+                split = aux.split('"') if aux.find('"') > 0 else aux.split(' ')
                 id = split[0]
                 rotulo = split[1]
                 self.grafo.append(Vertice(id, rotulo))
