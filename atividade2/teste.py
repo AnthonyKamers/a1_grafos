@@ -1,10 +1,8 @@
-def main():
-    lista = [1, 2, 3]
-    chamada(lista)
-    print(lista[0])
+lista = [
+    [1, 2, 3, 4],
+    [1, 2, 3],
+    [1, 2]
+]
 
-def chamada(lista):
-    lista[0] = 3
-
-if __name__ == "__main__":
-    main()
+lista1 = [1, 2, 3, 4, 5]
+print(lista1[-2])
