@@ -12,8 +12,11 @@ def get_min_caminho(grafo, caminho):
         for arco in vertice.edgesSaida:
             for k, item in enumerate(caminho):
                 if k != len(caminho)-1:
-                    if arco.a == caminho[k] and arco.b == caminho[k+1]:
+                    if arco.a + 1 == caminho[k] and arco.b + 1 == caminho[k+1]:
                         pesos.append(arco.peso)
+                    if len(pesos) == len(caminho):
+                        break
+    print(caminho)
     print(min(pesos))
 
 def edmonds_karp(grafo, vertice_fonte, vertice_sorvedouro):
@@ -58,7 +61,7 @@ def edmonds_karp(grafo, vertice_fonte, vertice_sorvedouro):
 
 def main():
     grafo = Grafo.Grafo("testes/fluxo_maximo/wiki.net")
-    edmonds_karp(grafo, 1, 6)
+    edmonds_karp(grafo, 1, 7)
 
 if __name__ == "__main__":
     main()
