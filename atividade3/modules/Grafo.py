@@ -77,7 +77,7 @@ class Grafo:
             
             if reading:
                 split = aux.split('"') if aux.find('"') > 0 else aux.split(' ')
-                id = split[0]
+                id = int(split[0])
                 rotulo = split[1]
                 self.grafo.append(Vertice(id, rotulo))
 
@@ -104,6 +104,9 @@ class Grafo:
     
     def vizinhos(self, index):
         return self.grafo[index-1].vizinhos()
+    
+    def vizinhosSaida(self, index):
+        return self.grafo[index-1].vizinhosSaida()
     
     def haAresta(self, u, v):
         return self.grafo[u-1].haAresta(v)
