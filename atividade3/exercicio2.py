@@ -1,8 +1,6 @@
 import sys
 from modules import Grafo
 
-first = False
-
 def BFS(grafo, mate, distancia, X):
     fila = []
 

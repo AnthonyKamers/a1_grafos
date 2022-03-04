@@ -1,5 +1,4 @@
 import networkx
-from networkx.algorithms.approximation import *
 
 class Vertice1:
     def __init__(self, id, rotulo):
