@@ -4,12 +4,16 @@ import itertools
 from networkx.algorithms.approximation import *
 from modules import Grafo1
 
+general = {}
+
 def coloracao_minima(grafo):
+    global general
+
     table_mark = make_table(grafo.grafo.number_of_nodes())
     table_mark[0]["value"] = 0
 
     for k, item in enumerate(table_mark):
-        if item["elements"] == []:
+        if k == 0:
             pass
         else:
             # fazer grafo' com elementos do item atual
@@ -21,29 +25,32 @@ def coloracao_minima(grafo):
 
                 subtraction_list = [i for i in grafo_linha.nodes if i not in max_set]
                 subtraction_list.sort()
+
                 find_table = list(filter(lambda i: i["elements"] == subtraction_list, table_mark))
                 value_table = find_table[0]["value"]
 
                 if (value_table + 1 < table_mark[k]["value"]):
-                    print(f'vai atualizar table_mark[{k}][value] = {value_table + 1}')
-                    table_mark[k]["value"] = value_table + 1
+                    table_mark[k]["value"] = int(value_table + 1)
+                    print(f'{k} - {table_mark[k]["value"]}')
 
                 if subtraction_list != []:
                     grafo_linha = grafo_linha.subgraph(max_set)
                 else:
                     break
-    
-    for k, v in enumerate(table_mark):
-        print(f'table_mark[{k}] -> {table_mark[k]["value"]}')
+
+    # for k, v in enumerate(table_mark):
+    #     print(f'table_mark[{k}] -> {table_mark[k]["value"]}')
     # print(table_mark[len(table_mark) - 1])
 
 def make_table(n):
+    global general
+
     table = list(itertools.product([False, True], repeat=n))
     lista = list(table[1])
     lista.reverse()
 
     table_mark = []
-    for iterate in table:
+    for k, iterate in enumerate(table):
         elements = [k for k,v in enumerate(iterate) if v]
 
         dict1 = {
@@ -52,6 +59,8 @@ def make_table(n):
             "value": sys.float_info.max
         }
         table_mark.append(dict1)
+
+        general[k] = sys.float_info.max
 
     return table_mark
 
