@@ -1,4 +1,3 @@
-import sys
 from modules import Grafo
 
 def find_vertice(grafo, id):
