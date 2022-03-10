@@ -31,10 +31,9 @@ def coloracao_minima(grafo):
 
                 if (value_table + 1 < table_mark[k]["value"]):
                     table_mark[k]["value"] = int(value_table + 1)
-                    print(f'{k} - {table_mark[k]["value"]}')
 
                 if subtraction_list != []:
-                    grafo_linha = grafo_linha.subgraph(max_set)
+                    grafo_linha = grafo_linha.subgraph(subtraction_list)
                 else:
                     break
 
