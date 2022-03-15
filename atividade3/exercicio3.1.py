@@ -26,7 +26,7 @@ def greedyColoring(grafo):
             if (available_color[color_now] == False):
                 break
             
-            cr += 1
+            color_now += 1
 
         # atribui a cor encontrada
         result[u-1] = color_now
@@ -38,7 +38,7 @@ def greedyColoring(grafo):
         
     # print the result
     for u in range(grafo.qtdVertices()):
-        print(f'vertex {u} ---> color: {result[u]}')
+        print(f'vértice {u} ---> cor: {result[u]}')
 
 
 def main():

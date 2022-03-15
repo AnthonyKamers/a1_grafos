@@ -4,10 +4,7 @@ import itertools
 from networkx.algorithms.approximation import *
 from modules import Grafo1
 
-general = {}
-
 def coloracao_minima(grafo):
-    global general
 
     table_mark = make_table(grafo.grafo.number_of_nodes())
     table_mark[0]["value"] = 0
@@ -37,16 +34,10 @@ def coloracao_minima(grafo):
                 else:
                     break
 
-    # for k, v in enumerate(table_mark):
-    #     print(f'table_mark[{k}] -> {table_mark[k]["value"]}')
-    # print(table_mark[len(table_mark) - 1])
+    print(table_mark[len(table_mark) - 1])
 
 def make_table(n):
-    global general
-
     table = list(itertools.product([False, True], repeat=n))
-    lista = list(table[1])
-    lista.reverse()
 
     table_mark = []
     for k, iterate in enumerate(table):
@@ -59,13 +50,10 @@ def make_table(n):
         }
         table_mark.append(dict1)
 
-        general[k] = sys.float_info.max
-
     return table_mark
 
 def main():
     grafo = Grafo1.Grafo1("testes/coloracao/aula.net")
-    print(grafo.grafo.edges)
     coloracao_minima(grafo)
     # edges = list(grafo.grafo.edges)
 
